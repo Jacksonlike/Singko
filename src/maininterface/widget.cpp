@@ -18,8 +18,8 @@ Widget::Widget(QWidget *parent) :
 
 void Widget::display()
 {
-    setWindowIcon(QIcon(":/logo.ico"));
-    ui->search_icon->setIcon(QIcon(":/Magnifier.svg"));
+    setWindowIcon(QIcon(":/other/image/logo.ico"));
+    ui->search_icon->setIcon(QIcon(":/other/image/Magnifier.svg"));
 
     QPalette pa;
     pa.setColor(QPalette::Text, Qt::darkGray);
@@ -42,7 +42,7 @@ Widget::~Widget()
 void Widget::setBackground(int num)
 {
     QPalette pal;
-    QPixmap pic = QPixmap(QString(":/default_background%1.jpg").arg(num));
+    QPixmap pic = QPixmap(QString(":/background/backgroound/default_background%1.jpg").arg(num));
     pic = pic.scaled(width(), height());
 
 #ifdef DEBUG_WIDTH
@@ -58,7 +58,7 @@ void Widget::setBackground(int num)
 
 void Widget::setHeadprotrait(int num)
 {
-    QIcon headprotrait = QPixmap(QString(":/default_head%1.jpg").arg(num));
+    QIcon headprotrait = QPixmap(QString(":/head/head/default_head%1.jpg").arg(num));
     ui->head->setIcon(headprotrait);
     ui->head->setIconSize(QSize(60, 60));
 }

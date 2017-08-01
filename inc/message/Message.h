@@ -18,7 +18,7 @@ class Message : public QObject
 public:
     explicit Message(QObject *parent = 0);
 
-    QString getName();
+    inline QString getName();
     QString getSignature();
     QString getIP();
     QString getHostname();
@@ -46,5 +46,11 @@ private:
     QString signature;
     QString userIP;
 };
+
+inline QString Message::getName()
+{
+    return this->usrname;
+}
+
 
 #endif // MESSAGE_H

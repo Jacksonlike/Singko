@@ -1,2 +1,40 @@
-<RCC/>
-
+<RCC>
+    <qresource prefix="/background">
+        <file>backgroound/default_background1.jpg</file>
+        <file>backgroound/default_background2.jpg</file>
+    </qresource>
+    <qresource prefix="/face">
+        <file>face/cry.ico</file>
+        <file>face/smile.ico</file>
+        <file>face/smile_2.ico</file>
+        <file>face/smile_3.ico</file>
+        <file>face/smile_4.ico</file>
+        <file>face/smile_5.ico</file>
+    </qresource>
+    <qresource prefix="/head">
+        <file>head/default_head1.jpg</file>
+        <file>head/default_head2.jpg</file>
+        <file>head/default_head3.jpg</file>
+    </qresource>
+    <qresource prefix="/other">
+        <file>image/1.ico</file>
+        <file>image/2.ico</file>
+        <file>image/3.ico</file>
+        <file>image/4.ico</file>
+        <file>image/control.ico</file>
+        <file>image/download.ico</file>
+        <file>image/FaceExpression.ico</file>
+        <file>image/font.ico</file>
+        <file>image/logo.ico</file>
+        <file>image/Magnifier.svg</file>
+        <file>image/panda.ico</file>
+        <file>image/picture.ico</file>
+        <file>image/receive.ico</file>
+        <file>image/send.ico</file>
+        <file>image/share.ico</file>
+        <file>image/syssetting.svg</file>
+        <file>image/usersetting.svg</file>
+        <file>image/vedio.ico</file>
+        <file>image/voice.ico</file>
+    </qresource>
+</RCC>

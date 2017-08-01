@@ -8,11 +8,6 @@ Message::Message(QObject *parent) : QObject(parent)
 }
 
 
-QString Message::getName()
-{
-    return this->usrname;
-}
-
 void Message::setName(QString name)
 {
     this->usrname = name;

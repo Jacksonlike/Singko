@@ -32,29 +32,29 @@ ChatWindow::ChatWindow(QDialog *parent,userMessage * fri):
 
 void ChatWindow::init_button()
 {
-    ui->pushButton_video->setIcon(QIcon(QPixmap(":/vedio.ico")));
+    ui->pushButton_video->setIcon(QIcon(QPixmap(":/other/image/vedio.ico")));
     ui->pushButton_video->setIconSize(QSize(28,28));
     ui->pushButton_video->setStyleSheet("border:none");
     ui->pushButton_video->setMouseTracking(true);
-    ui->pushButton_voice->setIcon(QIcon(":/voice.ico"));
+    ui->pushButton_voice->setIcon(QIcon(":/other/image/voice.ico"));
     ui->pushButton_voice->setIconSize(QSize(28,28));
     ui->pushButton_voice->setStyleSheet("border:none");
 
-    ui->pushButton_sharefile->setIcon(QIcon(":/share.ico"));
+    ui->pushButton_sharefile->setIcon(QIcon(":/other/image/share.ico"));
     ui->pushButton_sharefile->setIconSize(QSize(28,28));
     ui->pushButton_sharefile->setStyleSheet("border:none");
 
-    ui->pushButton_control->setIcon(QIcon(":/control.ico"));
+    ui->pushButton_control->setIcon(QIcon(":/other/image/control.ico"));
     ui->pushButton_control->setIconSize(QSize(28,28));
     ui->pushButton_control->setStyleSheet("border:none");
 
-    ui->pushButton_picture->setIcon(QIcon(":/picture.ico"));
+    ui->pushButton_picture->setIcon(QIcon(":/other/image/picture.ico"));
     ui->pushButton_picture->setIconSize(QSize(20,20));
 
     ui->pushButton_FaceExpression->setIcon(QIcon(":/FaceExpression.ico"));
     ui->pushButton_FaceExpression->setIconSize(QSize(20,20));
 
-    ui->pushButton_font->setIcon(QIcon(":/font.ico"));
+    ui->pushButton_font->setIcon(QIcon(":/other/image/font.ico"));
     ui->pushButton_font->setIconSize(QSize(20,20));
 }
 
@@ -89,11 +89,11 @@ void ChatWindow::slots_expression_clicked(QTableWidgetItem* Item)
 {
 
     int num = Item->row()*8 + Item->column();
-    QDir *expression_dir = new QDir(":/face");
+    QDir *expression_dir = new QDir(":/face/face/");
     QStringList myexpression_list = expression_dir->entryList();//文件名列表
     QList<QString>::iterator i = myexpression_list.begin();
     i+=num;
-    QString filename(":/face/"+*i);
+    QString filename(":/face/face/"+*i);
     QTextImageFormat imageFormat;   //保存图片格式对象
     imageFormat.setName(filename);
     imageFormat.setHeight(20);

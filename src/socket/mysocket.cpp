@@ -41,7 +41,7 @@ void Mysocket::sendMessage(QHostAddress ipaddr,QString str)
     send_mes.cleanSend();
 }
 
-void Mysocket::rec_message()
+void Mysocket::recMessage()
 {
     qDebug()<<"mmmmmmmmmmmmm";
     char buf[1024];
