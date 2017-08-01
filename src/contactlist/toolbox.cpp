@@ -23,7 +23,7 @@ void Toolbox::addContacts(userMessage *someone)
 {
     this->OnlineContects.append(someone);
 
-    QIcon p = QPixmap(QString(":/default_head%1.jpg").arg(someone->getHeadprotrait()));
+    QIcon p = QPixmap(QString(":/head/head/default_head%1.jpg").arg(someone->getHeadprotrait()));
     Friend_Pushbutton *button = new
             Friend_Pushbutton(someone,this);
 

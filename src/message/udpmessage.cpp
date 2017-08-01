@@ -4,7 +4,6 @@ udpmessage::udpmessage(QObject *parent) : QObject(parent)
 {
     rev_text.clear();
     send_text.clear();
-
 }
 
 void udpmessage::setRevText(char *ch)
@@ -13,7 +12,7 @@ void udpmessage::setRevText(char *ch)
     {
         char *p = ch;
         QString mes[6];
-        int i = 0;
+        qint16 i = 0;
         while(*p != '\0')
         {
             if(*p != '^')
@@ -65,8 +64,6 @@ userMessage* udpmessage::getRevMessage()
 
 void udpmessage::setSendText(int f,ownMessage *mes)
 {
-
-
     //标记位+'^'+个人信息
     QString str = QString("%1^%2").arg(f).arg(mes->getHeadprotrait())
             +"^"+mes->getName()+"^"+mes->getHostname()+"^"

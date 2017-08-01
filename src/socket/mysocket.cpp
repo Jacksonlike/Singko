@@ -7,11 +7,12 @@ Mysocket::Mysocket(QObject *parent) : QObject(parent)
 {
     flag = 0;//为0时表示刚建立udpsocket,需要发送广播
     udpsocket = new QUdpSocket(this);
-    ownMessage *mymessage = new ownMessage;
-    udpsocket->bind(QHostAddress(mymessage->getLocalIP()),50001);
-    qDebug()<<mymessage->getLocalIP();
+    udpsocket->bind(QHostAddress(ownMessage::getLocalIP()),50001);
+
+    qDebug()<<"Local IP : "<<ownMessage::getLocalIP();
+
     connect(udpsocket, SIGNAL(readyRead()),
-            this,SLOT(rec_message()));
+            this, SLOT(recMessage()));
 }
 
 void Mysocket::sendMessage(QHostAddress ipaddr,QString str)
@@ -19,20 +20,20 @@ void Mysocket::sendMessage(QHostAddress ipaddr,QString str)
 
     if(flag == 0)//刚上线，需要广播自己的信息
     {
-        qDebug()<<"111,shangxian";
+        qDebug()<<"Online boardcast";
         ownMessage *mymessage = new ownMessage;
-        send_mes.setSendText(0,mymessage);
-       int n = udpsocket->writeDatagram(send_mes.getSendText(),
+        send_mes.setSendText(0, mymessage);
+        qint64 n = udpsocket->writeDatagram(send_mes.getSendText(),
                    send_mes.getSendText().size(),
                    QHostAddress::Broadcast,50001);
-        qDebug()<<n;
+        qDebug() << "write data : " << n;
         delete mymessage;       
         flag = 2;//状态转换为已上线
     }
 
     else if(flag == 2)//已上线，可正常聊天
     {
-        qDebug()<<"222,chating";
+        qDebug()<<"Chating";
         send_mes.setSendText(2,str);
         udpsocket->writeDatagram(send_mes.getSendText(),
                                  send_mes.getSendText().size(),

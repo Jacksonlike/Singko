@@ -14,6 +14,7 @@ public:
 signals:
     void sigAddFriend(userMessage* user);
     void sigRevText(QString str,QHostAddress ipipaddr);
+
 public slots:
     void recMessage();
     void sendMessage(QHostAddress ipaddr, QString str);
