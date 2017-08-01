@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>650</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>650</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>300</width>
+    <height>650</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Singko</string>
+  </property>
+  <widget class="QLineEdit" name="signature">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>50</y>
+     <width>150</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>150</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>150</width>
+     <height>20</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="head">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>65</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>65</width>
+     <height>65</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>65</width>
+     <height>65</height>
+    </size>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="usr_name">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>20</y>
+     <width>80</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>80</width>
+     <height>30</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>80</width>
+     <height>30</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 italic 14pt &quot;Mistral&quot;;</string>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>120</y>
+     <width>300</width>
+     <height>490</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="contacts">
+    <attribute name="title">
+     <string>Contacts</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="groups">
+    <attribute name="title">
+     <string>Groups</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Recent</string>
+    </attribute>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>620</y>
+     <width>301</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="syssetting_Button">
+      <property name="text">
+       <string>System Setting</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="usrsetting_Button">
+      <property name="text">
+       <string>User Setting</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="share_Button">
+      <property name="text">
+       <string>Sharing File</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="search_icon">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>90</y>
+     <width>26</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="search_bar">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>90</y>
+     <width>260</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <zorder>layoutWidget</zorder>
+  <zorder>tabWidget</zorder>
+  <zorder>signature</zorder>
+  <zorder>head</zorder>
+  <zorder>usr_name</zorder>
+  <zorder>search_icon</zorder>
+  <zorder>search_bar</zorder>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>syssetting_Button</tabstop>
+  <tabstop>usrsetting_Button</tabstop>
+  <tabstop>share_Button</tabstop>
+  <tabstop>signature</tabstop>
+  <tabstop>head</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
