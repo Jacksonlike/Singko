@@ -34,7 +34,8 @@ HEADERS  += inc/chatface/chatwindow.h \
     inc/message/ownMessage.h \
     inc/message/userMessage.h \
     inc/socket/mysocket.h \
-    inc/socket/udpmessage.h
+    inc/socket/udpmessage.h \
+    inc/contactslist/groupwidget.h
 
 INCLUDEPATH += inc/chatface \
     inc/contactslist \

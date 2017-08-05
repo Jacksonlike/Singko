@@ -19,17 +19,15 @@ public:
     explicit Message(QObject *parent = 0);
 
     inline QString getName();
-    QString getSignature();
-    QString getIP();
-    QString getHostname();
-    int  getHeadprotrait();
-    void setName(QString name);
-    void setSignature(QString sig);
-    void setHostname(QString hostname);
-    void setHeadprotrait(int num);
+    inline QString getSignature();
+    inline QString getIP();
+    inline QString getHostname();
+    inline int  getHeadprotrait();
+    inline void setName(QString name);
+    inline void setSignature(QString sig);
+    inline void setHostname(QString hostname);
+    inline void setHeadprotrait(int num);
     void setIP(QString IP);
-    virtual void Readfile()  = 0;
-    virtual void Writefile() = 0;
 
 signals:
     void NameChanged(QString name);
@@ -40,6 +38,8 @@ signals:
 public slots:
 
 private:
+    virtual void Readfile()  = 0;
+    virtual void Writefile() = 0;
     int headprotrait;
     QString usrname;
     QString hostname;
@@ -52,5 +52,48 @@ inline QString Message::getName()
     return this->usrname;
 }
 
+inline void Message::setName(QString name)
+{
+    this->usrname = name;
+    emit NameChanged(name);
+}
+
+inline QString Message::getSignature()
+{
+    return this->signature;
+}
+
+inline void Message::setSignature(QString sig)
+{
+    this->signature = sig;
+    emit SignatureChanged(sig);
+}
+
+inline QString Message::getIP()
+{
+    return this->userIP;
+}
+
+inline int Message::getHeadprotrait()
+{
+    return this->headprotrait;
+}
+
+inline QString Message::getHostname()
+{
+    return this->hostname;
+}
+
+inline void Message::setHostname(QString hostname)
+{
+    this->hostname = hostname;
+    emit HostnameChanged(hostname);
+}
+
+inline void Message::setHeadprotrait(int num)
+{
+    this->headprotrait = num;
+    emit HeadprotraitChanged(num);
+}
 
 #endif // MESSAGE_H

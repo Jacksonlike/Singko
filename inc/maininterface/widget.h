@@ -35,6 +35,9 @@ public slots:
     void setUsrname(QString name);
     void setSignature(QString signature);
 
+private slots:
+    void on_About_Button_clicked();
+
 private:
     Ui::Widget *ui;
     ownMessage* master;

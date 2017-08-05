@@ -148,23 +148,23 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="syssetting_Button">
+     <widget class="QPushButton" name="Setting_Button">
       <property name="text">
-       <string>System Setting</string>
+       <string>Setting</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="usrsetting_Button">
+     <widget class="QPushButton" name="Sharing_Button">
       <property name="text">
-       <string>User Setting</string>
+       <string>Files</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="share_Button">
+     <widget class="QPushButton" name="About_Button">
       <property name="text">
-       <string>Sharing File</string>
+       <string>About</string>
       </property>
      </widget>
     </item>
@@ -204,9 +204,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>syssetting_Button</tabstop>
-  <tabstop>usrsetting_Button</tabstop>
-  <tabstop>share_Button</tabstop>
+  <tabstop>Setting_Button</tabstop>
+  <tabstop>Sharing_Button</tabstop>
+  <tabstop>About_Button</tabstop>
   <tabstop>signature</tabstop>
   <tabstop>head</tabstop>
  </tabstops>

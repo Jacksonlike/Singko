@@ -11,14 +11,9 @@ ownMessage::ownMessage(QObject *parent) : Message(parent)
     this->setIP(getLocalIP());
 }
 
-void ownMessage::setBackground(int back)
+ownMessage::~ownMessage()
 {
-    this->background = back;
-}
-
-int ownMessage::getBackground()
-{
-    return this->background;
+    Writefile();
 }
 
 QString ownMessage::getLocalIP()

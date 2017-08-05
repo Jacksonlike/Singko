@@ -74,7 +74,6 @@ void udpmessage::setSendText(int f,ownMessage *mes)
 
 void udpmessage::setSendText(int f,QString str)
 {
-
     //标记位+'^'+内容
     send_text = send_text.append(QString("%1").arg(f));
     send_text = send_text.append('^');

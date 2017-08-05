@@ -8,26 +8,43 @@
 #include "chatwindow.h"
 
 
-class Friend_Pushbutton:public QPushButton
+class FriendPushbutton:public QPushButton
 {
     Q_OBJECT
 public:
-    Friend_Pushbutton(userMessage* u, QWidget *parent = 0);
-    int get_flag();
-    void set_flag(int n);
+    FriendPushbutton(userMessage* u, QWidget *parent = 0);
+    ~FriendPushbutton();
+
+    inline int  getFlag();
+    inline void setFlag(int n);
+    inline userMessage * getUser();
 
 public slots:
     void on_pushButton_clicked();
-    void rev_friend_message(QString str, QHostAddress ipaddr);
+    void revFriendMessage(QString str, QHostAddress ipaddr);
 
 signals:
-    sig_button_message(QString str);
+    sigButtonMessage(QString str);
 
 private:
     userMessage *user;
     int push_flag;
-
-
 };
+
+
+inline void FriendPushbutton::setFlag(int n)
+{
+    push_flag = n;
+}
+
+inline userMessage *FriendPushbutton::getUser()
+{
+    return user;
+}
+
+inline int FriendPushbutton::getFlag()
+{
+    return push_flag;
+}
 
 #endif // FRIEND_PUSHBUTTON_H

@@ -1,51 +1,40 @@
 #include "friend_pushbutton.h"
+#include <toolbox.h>
 
-
-
-
-
-Friend_Pushbutton::Friend_Pushbutton(userMessage *u, QWidget *parent)
-    :QPushButton(parent)
+FriendPushbutton::FriendPushbutton(userMessage *u,QWidget *parent)
+    :QPushButton(parent), user(u), push_flag(0)
 {
-    push_flag = 0; //表示窗口未打开
-    user = new userMessage;
-    user = u;
-    qDebug()<<user->getIP();
+
 }
 
-int Friend_Pushbutton::get_flag()
+
+FriendPushbutton::~FriendPushbutton()
 {
-    return push_flag;
+    delete user;
 }
 
-void Friend_Pushbutton::set_flag(int n)
+void FriendPushbutton::on_pushButton_clicked()
 {
-    push_flag = n;
-}
-
-void Friend_Pushbutton::on_pushButton_clicked()
-{
-
-    set_flag(1);//表示窗口被点开
-    ChatWindow *myfriend = new ChatWindow(0,user);
-    connect(this,SIGNAL(sig_button_message(QString)),myfriend,SLOT(slot_button_message(QString)));
+    setFlag(1);//表示窗口被点开
+    ChatWindow *myfriend = new ChatWindow(0, user);
+    connect(this,SIGNAL(sigButtonMessage(QString)),myfriend,SLOT(slot_button_message(QString)));
     myfriend->show();
 }
 
-void Friend_Pushbutton::rev_friend_message(QString str, QHostAddress ipaddr)
+void FriendPushbutton::revFriendMessage(QString str, QHostAddress ipaddr)
 {
     if(ipaddr != QHostAddress(user->getIP()))
         return ;
 
     else
     {
-        if(get_flag() == 0)
+        if(getFlag() == 0)
         {
             //改变按钮颜色
         }
-        else if(get_flag() ==1)
+        else if(getFlag() ==1)
         {
-            emit sig_button_message(str);//给窗口发信号显示消息
+            emit sigButtonMessage(str);//给窗口发信号显示消息
         }
     }
 

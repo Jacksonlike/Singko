@@ -36,5 +36,6 @@
         <file>image/usersetting.svg</file>
         <file>image/vedio.ico</file>
         <file>image/voice.ico</file>
+        <file>image/file.svg</file>
     </qresource>
 </RCC>

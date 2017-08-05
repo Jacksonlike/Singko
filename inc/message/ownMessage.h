@@ -18,21 +18,29 @@ class ownMessage : public Message
 {
 public:
     ownMessage(QObject *parent = 0);
+    ~ownMessage();
 
-    void setBackground(int back);
-    int  getBackground();
-    virtual void Readfile();
-    virtual void Writefile();
-
+    inline void setBackground(int back);
+    inline int  getBackground();
     static QString getLocalIP();
 
 private:
+    virtual void Readfile();
+    virtual void Writefile();
     int  background;
     //QStringList group;
 
 };
 
+inline void ownMessage::setBackground(int back)
+{
+    this->background = back;
+}
 
+inline int ownMessage::getBackground()
+{
+    return this->background;
+}
 
 
 #endif // OWNMESSAGE

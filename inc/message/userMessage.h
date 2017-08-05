@@ -23,18 +23,25 @@ public:
     userMessage(QString IP, QObject *parent = 0);
     ~userMessage();
 
-    void setGroup(int num);
-    int  getGroup();
+    inline void setGroup(int num);
+    inline int  getGroup();
     bool isMe(QString IP);
-    virtual void Readfile();
-    virtual void Writefile();
 
 private:
 	int  groupnum;
-
+    virtual void Readfile();
+    virtual void Writefile();
 };
 
+inline void userMessage::setGroup(int num)
+{
+    this->groupnum = num;
+}
 
+inline int userMessage::getGroup()
+{
+    return this->groupnum;
+}
 
 #endif // USERMESSAGE
 

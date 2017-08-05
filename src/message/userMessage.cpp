@@ -21,16 +21,6 @@ userMessage::~userMessage()
     Writefile();
 }
 
-void userMessage::setGroup(int num)
-{
-    this->groupnum = num;
-}
-
-int userMessage::getGroup()
-{
-    return this->groupnum;
-}
-
 bool userMessage::isMe(QString IP)
 {
     if (IP == getIP())
