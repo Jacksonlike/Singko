@@ -19,8 +19,8 @@ void FriendPushbutton::mouseDoubleClickEvent(QMouseEvent *event)
     ChatWindow *myfriend = new ChatWindow(0, user);
     connect(this,SIGNAL(sigButtonMessage(QString)),myfriend,SLOT(slot_button_message(QString)));
     //读取对应好友消息记录，并显示
-
     myfriend->show();
+    QPushButton::mouseDoubleClickEvent(event);
 }
 
 void FriendPushbutton::revFriendMessage(QString str, QHostAddress ipaddr)

@@ -110,7 +110,7 @@ void Mysocket::recMessage()
             emit sigRevText(rec_mes.getRevText(),sender_ip);
         }
 
-        else if(*buf == '-1')//收到下线广播
+        else if(*buf == '3')//收到下线广播
         {
             qDebug()<<"someclosed(*buf == '-1')";
             emit sigClosed(sender_ip.toString());

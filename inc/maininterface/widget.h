@@ -5,6 +5,10 @@
 #include <ownMessage.h>
 #include <toolbox.h>
 #include <lineedit.h>
+#include <QMessageBox>
+#include <QMouseEvent>
+#include <QSystemTrayIcon>
+#include <mypushbutton.h>
 #include "mysocket.h"
 
 #include <QtDebug>
@@ -27,6 +31,8 @@ class Widget : public QWidget
 
 public:
     explicit Widget(QWidget *parent = 0);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
     void display();
     ~Widget();
 
@@ -36,14 +42,24 @@ public slots:
     void setUsrname(QString name);
     void setSignature(QString signature);
 
+
 private slots:
+    void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason);
     void on_About_Button_clicked();
+    void on_mini_pushbutton_clicked();
+
+    void on_close_pushbutton_clicked();
 
 private:
     Ui::Widget *ui;
     ownMessage* master;
     Toolbox *usrlist;
     LineEdit *signature;
+    QSystemTrayIcon *mSysTrayIcon;
+    MyPushbutton *Setting_Button;
+    MyPushbutton *Sharing_Button;
+    MyPushbutton *About_Button;
+    QPoint dPos;
  //   Mysocket *myudp_socket;
 
 //    Toolbox *grouplist;

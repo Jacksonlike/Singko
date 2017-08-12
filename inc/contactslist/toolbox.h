@@ -29,6 +29,7 @@ signals:
 public slots:
     void addContacts(userMessage *someone);
     void deleteContacts(QString IP);
+    void slot_currentChanged(int index);
 //    void setGroups(int num, QString title);
 //    void addGroups(QString title);
 //    void deleteGroup(int num);
@@ -36,6 +37,7 @@ public slots:
 private:
     void Readfile();
     void Writefile();
+    int index_old;
     QMap<int, GroupWidget *> friendlist;                  //用户分组信息管理
     QMap<quint32, FriendPushbutton *> usrtable;
 };

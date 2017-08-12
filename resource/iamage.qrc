@@ -37,5 +37,10 @@
         <file>image/vedio.ico</file>
         <file>image/voice.ico</file>
         <file>image/file.svg</file>
+        <file>image/contact.svg</file>
+        <file>image/contacts.svg</file>
+        <file>image/recentcontact.svg</file>
+        <file>image/down.svg</file>
+        <file>image/right.svg</file>
     </qresource>
 </RCC>

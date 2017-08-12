@@ -5,15 +5,18 @@
 #include <mysocket.h>
 
 extern Mysocket *myudp_socket;
-Toolbox::Toolbox(QWidget *parent) : QToolBox(parent)
+Toolbox::Toolbox(QWidget *parent) : QToolBox(parent), index_old(0)
 {
     usrtable.clear();
     this->Readfile();
+    this->setStyleSheet("QToolBoxButton { min-height:30px; }");
 
+    connect(this, SIGNAL(currentChanged(int)),
+            this, SLOT(slot_currentChanged(int)));
     connect(myudp_socket, SIGNAL(sigAddFriend(userMessage *)),
                         this, SLOT(addContacts(userMessage *)));
     connect(myudp_socket, SIGNAL(sigClosed(QString)),
-                        this, SLOT(deleteContacts(QString)));
+                        this, SLOT(deleteContacts(QString))); 
     //与Socket增加好友的信号连接
 }
 
@@ -63,10 +66,12 @@ void Toolbox::addContacts(userMessage *someone)
 
     it.value()->countplus();                //对应的分组里面的人数增加一人
     it.value()->Buttonlist.append(button);  //对应分组里面的按钮增加一个
+//    it.value()->resize();
 
     //将用户添加到usrtable进行管理
     this->usrtable.insert(IPnum, button);
     this->update();
+    emit currentChanged(index_old);
 }
 
 void Toolbox::deleteContacts(QString IP)
@@ -108,6 +113,13 @@ void Toolbox::deleteContacts(QString IP)
 #endif
 }
 
+void Toolbox::slot_currentChanged(int index)
+{
+    this->setItemIcon(index, QIcon(":/other/image/down.svg"));
+    this->setItemIcon(index_old, QIcon(":/other/image/right.svg"));
+    index_old = index;
+}
+
 //私有函数
 void Toolbox::Readfile()
 {
@@ -130,6 +142,7 @@ void Toolbox::Readfile()
 
     friendlist.clear();
     QString line;
+    int i = 0;
     while(!file.atEnd())
     {
         line = file.readLine();
@@ -137,8 +150,11 @@ void Toolbox::Readfile()
         GroupWidget *widget = new GroupWidget(this);
         widget->setTitle(list[1].remove("\n").remove("\r"));
         this->addItem(widget->getWidget(), widget->getTitle());
+        this->setItemIcon(i, QIcon(":/other/image/right.svg"));
         this->friendlist.insert(list[0].toInt(), widget);
+        i++;
     }
+    this->setItemIcon(index_old, QIcon(":/other/image/down.svg"));
     file.close();
 }
 

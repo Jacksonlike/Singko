@@ -40,19 +40,21 @@ inline QWidget *GroupWidget::getWidget()
     return wid;
 }
 
-int GroupWidget::count()
+inline int GroupWidget::count()
 {
     return qcount;
 }
 
-void GroupWidget::countplus()
+inline void GroupWidget::countplus()
 {
     qcount++;
 }
 
-void GroupWidget::countreduce()
+inline void GroupWidget::countreduce()
 {
     qcount = qcount > 0 ? (qcount-1) : 0;
 }
+
+
 
 #endif // GROUPWIDGET

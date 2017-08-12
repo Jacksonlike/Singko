@@ -32,21 +32,21 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
-     <width>65</width>
-     <height>65</height>
+     <y>30</y>
+     <width>55</width>
+     <height>55</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>65</width>
-     <height>65</height>
+     <width>55</width>
+     <height>55</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>65</width>
-     <height>65</height>
+     <width>55</width>
+     <height>55</height>
     </size>
    </property>
    <property name="text">
@@ -75,7 +75,7 @@
     </size>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 75 italic 14pt &quot;Mistral&quot;;</string>
+    <string notr="true">font: 75 14pt &quot;Arial&quot;;</string>
    </property>
    <property name="text">
     <string>TextLabel</string>
@@ -87,7 +87,7 @@
      <x>0</x>
      <y>120</y>
      <width>300</width>
-     <height>490</height>
+     <height>470</height>
     </rect>
    </property>
    <property name="layoutDirection">
@@ -112,39 +112,6 @@
     </attribute>
    </widget>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>620</y>
-     <width>301</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QPushButton" name="Setting_Button">
-      <property name="text">
-       <string>Setting</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="Sharing_Button">
-      <property name="text">
-       <string>Files</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="About_Button">
-      <property name="text">
-       <string>About</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QPushButton" name="search_icon">
    <property name="geometry">
     <rect>
@@ -168,19 +135,85 @@
     </rect>
    </property>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>0</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 14pt &quot;Arial&quot;</string>
+   </property>
+   <property name="text">
+    <string>Singko</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="mini_pushbutton">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>0</y>
+     <width>40</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>40</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>40</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>-</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="close_pushbutton">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>0</y>
+     <width>40</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>40</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>40</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>×</string>
+   </property>
+  </widget>
   <zorder>layoutWidget</zorder>
   <zorder>tabWidget</zorder>
   <zorder>head</zorder>
   <zorder>usr_name</zorder>
   <zorder>search_icon</zorder>
   <zorder>search_bar</zorder>
+  <zorder>label</zorder>
+  <zorder>mini_pushbutton</zorder>
+  <zorder>close_pushbutton</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>Setting_Button</tabstop>
-  <tabstop>Sharing_Button</tabstop>
-  <tabstop>About_Button</tabstop>
   <tabstop>head</tabstop>
  </tabstops>
  <resources/>
