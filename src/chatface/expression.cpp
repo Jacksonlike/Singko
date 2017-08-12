@@ -28,7 +28,7 @@ void expression::init_expression()
     ui->tableWidget->verticalHeader()->setVisible(false);
 
     ui->tableWidget->setIconSize(QSize(30,30));
-    QDir *expression_dir = new QDir(":/face");
+    QDir *expression_dir = new QDir(":/face/face");
     QStringList myexpression = expression_dir->entryList();//文件名列表
     QList<QString>::iterator i;
 
@@ -37,8 +37,7 @@ void expression::init_expression()
     int column =0;
     for(i = myexpression.begin(); i != myexpression.end();i++)
     {
-        new_icon = QIcon(QString(":/face/")+*i);
-        qDebug()<<QString(":/face")+*i;
+        new_icon = QIcon(QString(":/face/face/")+*i);
         QTableWidgetItem *new_item = new QTableWidgetItem(new_icon,"");
 
         ui->tableWidget->setItem(row,column,new_item);

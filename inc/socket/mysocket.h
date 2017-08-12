@@ -10,10 +10,12 @@ class Mysocket : public QObject
     Q_OBJECT
 public:
     explicit Mysocket(QObject *parent = 0);
-
+    void setFlag(int n);
+    ~Mysocket();
 signals:
     void sigAddFriend(userMessage* user);
     void sigRevText(QString str,QHostAddress ipipaddr);
+    void sigClosed(QString ip);
 
 public slots:
     void recMessage();
@@ -25,5 +27,7 @@ private:
     udpmessage send_mes;
     udpmessage rec_mes;
 };
+
+
 
 #endif // MYSOCKET_H

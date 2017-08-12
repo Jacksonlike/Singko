@@ -4,9 +4,10 @@
 #include <QWidget>
 #include <ownMessage.h>
 #include <toolbox.h>
+#include <lineedit.h>
 #include "mysocket.h"
 
-//#include <QtDebug>
+#include <QtDebug>
 //#define  DEBUG_WIDTH
 
 //==============================================================
@@ -42,6 +43,7 @@ private:
     Ui::Widget *ui;
     ownMessage* master;
     Toolbox *usrlist;
+    LineEdit *signature;
  //   Mysocket *myudp_socket;
 
 //    Toolbox *grouplist;

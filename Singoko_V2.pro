@@ -23,7 +23,8 @@ SOURCES += src/chatface/chatwindow.cpp \
     src/message/udpmessage.cpp \
     src/message/userMessage.cpp \
     src/socket/mysocket.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/maininterface/lineedit.cpp
 
 HEADERS  += inc/chatface/chatwindow.h \
     inc/chatface/expression.h \
@@ -35,7 +36,8 @@ HEADERS  += inc/chatface/chatwindow.h \
     inc/message/userMessage.h \
     inc/socket/mysocket.h \
     inc/socket/udpmessage.h \
-    inc/contactslist/groupwidget.h
+    inc/contactslist/groupwidget.h \
+    inc/maininterface/lineedit.h
 
 INCLUDEPATH += inc/chatface \
     inc/contactslist \

@@ -28,31 +28,6 @@
   <property name="windowTitle">
    <string notr="true">Singko</string>
   </property>
-  <widget class="QLineEdit" name="signature">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>50</y>
-     <width>150</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>150</width>
-     <height>20</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>150</width>
-     <height>20</height>
-    </size>
-   </property>
-  </widget>
   <widget class="QPushButton" name="head">
    <property name="geometry">
     <rect>
@@ -195,7 +170,6 @@
   </widget>
   <zorder>layoutWidget</zorder>
   <zorder>tabWidget</zorder>
-  <zorder>signature</zorder>
   <zorder>head</zorder>
   <zorder>usr_name</zorder>
   <zorder>search_icon</zorder>
@@ -207,7 +181,6 @@
   <tabstop>Setting_Button</tabstop>
   <tabstop>Sharing_Button</tabstop>
   <tabstop>About_Button</tabstop>
-  <tabstop>signature</tabstop>
   <tabstop>head</tabstop>
  </tabstops>
  <resources/>

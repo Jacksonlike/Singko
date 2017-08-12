@@ -19,9 +19,12 @@ public:
     inline void setFlag(int n);
     inline userMessage * getUser();
 
+
+
 public slots:
-    void on_pushButton_clicked();
+
     void revFriendMessage(QString str, QHostAddress ipaddr);
+    void mouseDoubleClickEvent(QMouseEvent * event);
 
 signals:
     sigButtonMessage(QString str);

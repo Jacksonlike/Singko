@@ -51,7 +51,7 @@ void ChatWindow::init_button()
     ui->pushButton_picture->setIcon(QIcon(":/other/image/picture.ico"));
     ui->pushButton_picture->setIconSize(QSize(20,20));
 
-    ui->pushButton_FaceExpression->setIcon(QIcon(":/FaceExpression.ico"));
+    ui->pushButton_FaceExpression->setIcon(QIcon(":/other/image/FaceExpression.ico"));
     ui->pushButton_FaceExpression->setIconSize(QSize(20,20));
 
     ui->pushButton_font->setIcon(QIcon(":/other/image/font.ico"));
@@ -67,7 +67,8 @@ void ChatWindow::show_friendInformation(userMessage* friendMessage)
    ui->textBrowser_friendInformation->append("Signature: "+friendMessage->getSignature());
    ui->textBrowser_friendInformation->append("Ipaddress: "+friendMessage->getIP());
    ui->label_username->setText(friendMessage->getName());
-   QString headimagename =QString(":/default_head%1.jpg").arg(friendMessage->getHeadprotrait());
+   QString headimagename =QString(":/head/head/default_head%1.jpg")
+           .arg(friendMessage->getHeadprotrait());
    ui->pushButton_headimage->setIcon(QIcon(headimagename));
    ui->pushButton_headimage->setIconSize(QSize(45,45));
 
@@ -114,10 +115,11 @@ void ChatWindow::on_pushButton_2_clicked()//发送聊天消息，并更新自己
     ui->textBrowser_ChatLog->append(mymessage->getName()+":");
 
 
-    ui->textBrowser_ChatLog->append(ui->textEdit_sendmessage->toHtml());
-    ui->textEdit_sendmessage->clear();
+    ui->textBrowser_ChatLog->append(ui->textEdit_sendmessage->toHtml());    
 
-    myudp_socket->sendMessage(QHostAddress( friendmessage->getIP()),ui->textEdit_sendmessage->toHtml());
+    myudp_socket->sendMessage(QHostAddress( friendmessage->getIP()),
+                              ui->textEdit_sendmessage->toHtml());
+    ui->textEdit_sendmessage->clear();
 }
 
 void ChatWindow::on_pushButton_clicked()

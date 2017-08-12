@@ -24,7 +24,7 @@ public:
     inline QString getHostname();
     inline int  getHeadprotrait();
     inline void setName(QString name);
-    inline void setSignature(QString sig);
+
     inline void setHostname(QString hostname);
     inline void setHeadprotrait(int num);
     void setIP(QString IP);
@@ -36,7 +36,7 @@ signals:
     void HeadprotraitChanged(int num);
 
 public slots:
-
+    inline void setSignature(QString sig);
 private:
     virtual void Readfile()  = 0;
     virtual void Writefile() = 0;
