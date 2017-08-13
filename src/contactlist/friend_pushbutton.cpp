@@ -4,7 +4,6 @@
 FriendPushbutton::FriendPushbutton(userMessage *u,QWidget *parent)
     :QPushButton(parent), user(u), push_flag(0)
 {
-
 }
 
 

@@ -18,10 +18,14 @@ class ChatWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit ChatWindow(QDialog *parent = 0,userMessage * fri = 0);
+    explicit ChatWindow(QWidget *parent = 0,userMessage * fri = 0);
     void init_button();
-
+    void display();
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void keyPressEvent(QKeyEvent * event);
     void show_friendInformation(userMessage *friendMessage);
+
 
     ~ChatWindow();
 signals:
@@ -31,14 +35,17 @@ private slots:
     void slots_expression_clicked(QTableWidgetItem* Item);
     void on_pushButton_2_clicked();
     void on_pushButton_clicked();
-
     void slot_button_message(QString str);
+    void on_mini_pushbutton_clicked();
+    void on_close_pushbutton_clicked();
 
 private:
     Ui::ChatWindow *ui;
     expression *myexpression;
     ownMessage *mymessage;
     userMessage *friendmessage;
+    QPoint dPos;
+    bool mov;
 };
 
 #endif // CHATWINDOW_H

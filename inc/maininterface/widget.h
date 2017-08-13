@@ -9,6 +9,8 @@
 #include <QMouseEvent>
 #include <QSystemTrayIcon>
 #include <mypushbutton.h>
+#include <QTimer>
+#include <QPropertyAnimation>
 #include "mysocket.h"
 
 #include <QtDebug>
@@ -37,6 +39,7 @@ public:
     ~Widget();
 
 public slots:
+    void iconIsActived(QSystemTrayIcon::ActivationReason reason);
     void setBackground(int num);
     void setHeadprotrait(int num);
     void setUsrname(QString name);
@@ -47,8 +50,12 @@ private slots:
     void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason);
     void on_About_Button_clicked();
     void on_mini_pushbutton_clicked();
-
     void on_close_pushbutton_clicked();
+    void updateHide();
+    void updateShow();
+    void updateInter();
+    bool HideOrNot();
+    bool ShowOrNot();
 
 private:
     Ui::Widget *ui;
@@ -59,7 +66,15 @@ private:
     MyPushbutton *Setting_Button;
     MyPushbutton *Sharing_Button;
     MyPushbutton *About_Button;
+    QTimer *timer_Hide;
+    QTimer *timer_Show;
+    QTimer *timer_Inter;
+    QPropertyAnimation *edgeMoveAnimation;
     QPoint dPos;
+    int EdgeMoveTime;
+    int EdgeHideTime;
+    bool mov;
+
  //   Mysocket *myudp_socket;
 
 //    Toolbox *grouplist;

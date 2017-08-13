@@ -1,32 +1,27 @@
 #include "ui_chatwindow.h"
-#include <QDebug>
 #include "expression.h"
-#include <QDir>
-#include<QTextDocumentFragment>
-#include <QColor>
 #include "chatwindow.h"
 #include "mysocket.h"
 #include "widget.h"
+#include <QDebug>
+#include <QDir>
+#include <QTextDocumentFragment>
+#include <QColor>
 
 extern Mysocket* myudp_socket;
-ChatWindow::ChatWindow(QDialog *parent,userMessage * fri):
+ChatWindow::ChatWindow(QWidget *parent, userMessage * fri):
     QDialog(parent),
-    ui(new Ui::ChatWindow)
+    ui(new Ui::ChatWindow),friendmessage(fri)
 {
     ui->setupUi(this);
+//    dPos = this->pos();
     init_button();
     mymessage = new ownMessage;
-    qDebug()<<fri->getIP();
-    friendmessage = new userMessage;
-    friendmessage->setHeadprotrait(fri->getHeadprotrait());
-    friendmessage->setHostname(fri->getHostname());
-    friendmessage->setGroup(fri->getGroup());
-    friendmessage->setIP(fri->getIP());
-    friendmessage->setName(fri->getIP());
-    friendmessage->setObjectName(fri->getName());
-    //friendmessage = fri;
     myexpression = new expression(this);
+    qDebug()<<fri->getIP();
+
     show_friendInformation(friendmessage);
+    display();
 }
 
 
@@ -59,7 +54,6 @@ void ChatWindow::init_button()
 }
 
 
-
 void ChatWindow::show_friendInformation(userMessage* friendMessage)
 {
    ui->textBrowser_friendInformation->append("Username："+friendMessage->getName());
@@ -70,20 +64,22 @@ void ChatWindow::show_friendInformation(userMessage* friendMessage)
    QString headimagename =QString(":/head/head/default_head%1.jpg")
            .arg(friendMessage->getHeadprotrait());
    ui->pushButton_headimage->setIcon(QIcon(headimagename));
-   ui->pushButton_headimage->setIconSize(QSize(45,45));
+   ui->pushButton_headimage->setIconSize(QSize(25,25));
 
 }
 
 
 ChatWindow::~ChatWindow()
 {
+    delete myexpression;
+    delete mymessage;
     delete ui;
 }
 
 void ChatWindow::on_pushButton_FaceExpression_clicked()
 {
     myexpression->show();
-    myexpression->exec();
+   // myexpression->exec();
 }
 
 void ChatWindow::slots_expression_clicked(QTableWidgetItem* Item)
@@ -105,33 +101,91 @@ void ChatWindow::slots_expression_clicked(QTableWidgetItem* Item)
     cursor.insertImage(imageFormat);
 
     myexpression->close();
+    delete expression_dir;
 }
 
 void ChatWindow::on_pushButton_2_clicked()//发送聊天消息，并更新自己界面
 {
 
     ui->textBrowser_ChatLog->setTextColor(QColor(255,0,0));
-    ui->textBrowser_ChatLog->setFontPointSize(15);
+    ui->textBrowser_ChatLog->setFontPointSize(12);
+    QString text = ui->textEdit_sendmessage->toHtml();
+    qDebug() << text;
+    if (text.isEmpty())
+        return;
     ui->textBrowser_ChatLog->append(mymessage->getName()+":");
-
-
-    ui->textBrowser_ChatLog->append(ui->textEdit_sendmessage->toHtml());    
-
-    myudp_socket->sendMessage(QHostAddress( friendmessage->getIP()),
+    ui->textBrowser_ChatLog->append(text);
+    myudp_socket->sendMessage(QHostAddress(friendmessage->getIP()),
                               ui->textEdit_sendmessage->toHtml());
     ui->textEdit_sendmessage->clear();
 }
 
 void ChatWindow::on_pushButton_clicked()
 {
-    this->close();
+    delete this;
 }
 
 void ChatWindow::slot_button_message(QString str)
 {
     ui->textBrowser_ChatLog->setTextColor(QColor(0,255,0));
-    ui->textBrowser_ChatLog->setFontPointSize(15);
+    ui->textBrowser_ChatLog->setFontPointSize(12);
     ui->textBrowser_ChatLog->append(friendmessage->getName()+":");
     ui->textBrowser_ChatLog->append(str);
 }
+
+
+void ChatWindow::on_mini_pushbutton_clicked()
+{
+    this->showMinimized();
+}
+
+void ChatWindow::on_close_pushbutton_clicked()
+{
+    delete this;
+}
+
+void ChatWindow::mousePressEvent(QMouseEvent *event)
+{
+    int y = event->globalPos().ry()-this->pos().ry();
+    this->dPos = event->globalPos()-this->pos(); // 移动后部件所在的位置
+    mov = false;
+    if( y > 0 && y < 20)
+        mov = true;
+}
+
+void ChatWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    if(mov)
+        this->move(event->globalPos()-this->dPos);
+}
+
+void ChatWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Return)
+        on_pushButton_2_clicked();
+    if (event->key() == Qt::Key_Escape)
+        delete this;
+    else
+        QDialog::keyPressEvent(event);
+}
+
+void ChatWindow::display()
+{
+    setWindowIcon(QIcon(":/other/image/logo.ico"));
+    this->setWindowFlags(Qt::FramelessWindowHint);
+
+    //按钮格式设置
+    ui->close_pushbutton->setStyleSheet("QPushButton{background-color:transparent}"
+                                      "QPushButton:hover{background:qlineargradient"
+                                      "(spread:pad,x1:0,y1:0,x2:0,y2:1,"
+                                      "stop:0 rgba(250,0,0,150),"
+                                      "stop:1 rgba(0,0,0,0));}");
+    ui->mini_pushbutton->setStyleSheet("QPushButton{background-color:transparent}"
+                                      "QPushButton:hover{background:qlineargradient"
+                                      "(spread:pad,x1:0,y1:0,x2:0,y2:1,"
+                                      "stop:0 rgba(0,0,0,50),"
+                                      "stop:1 rgba(0,0,0,0));}");
+    this->setWindowTitle(friendmessage->getName());
+}
+
 

@@ -1,7 +1,6 @@
 #include "widget.h"
 #include "ui_maininterface.h"
 
-
 extern Mysocket *myudp_socket;
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -23,6 +22,9 @@ Widget::Widget(QWidget *parent) :
     //新建QSystemTrayIcon对象
     mSysTrayIcon = new QSystemTrayIcon(this);
 
+    connect(mSysTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+             this, SLOT(iconIsActived(QSystemTrayIcon::ActivationReason)));
+
     this->display();
 
     //==============
@@ -43,10 +45,25 @@ Widget::Widget(QWidget *parent) :
     someone->setGroup(0);
     usrlist->addContacts(someone);
     //===============
+    //=======界面吸附属性的设置========
+    EdgeHideTime = 10;
+    EdgeMoveTime = 10;
+    timer_Hide = new QTimer(this);
+    timer_Show = new QTimer(this);
+    timer_Inter= new QTimer(this);
+    timer_Inter->setInterval(3000);
+    timer_Hide->setInterval(EdgeMoveTime);//自己设定一个间断的时间
+    timer_Show->setInterval(EdgeHideTime);//自己设定一个间断的时间
+    connect(timer_Hide,SIGNAL(timeout()),this,SLOT(updateHide()));
+    connect(timer_Show,SIGNAL(timeout()),this,SLOT(updateShow()));
+    connect(timer_Inter,SIGNAL(timeout()),this,SLOT(updateInter()));
+    timer_Hide->start();
+    //=====================
 }
 
 void Widget::display()
 {
+
     //新建托盘要显示的icon
     QIcon icon = QIcon(":/other/image/logo.ico");
     //将icon设到QSystemTrayIcon对象中
@@ -66,8 +83,16 @@ void Widget::display()
     ui->tabWidget->setTabIcon(2, QIcon(":/other/image/recentcontact.svg"));
     ui->tabWidget->setStyleSheet("QTabBar::tab{width:100px;}");
 
-    ui->close_pushbutton->setStyleSheet("background-color:transparent");
-    ui->mini_pushbutton->setStyleSheet("background-color:transparent");
+    ui->close_pushbutton->setStyleSheet("QPushButton{background-color:transparent}\
+                                        QPushButton:hover{background:qlineargradient"
+                                                          "(spread:pad,x1:0,y1:0,x2:0,y2:1,"
+                                                          "stop:0 rgba(180,0,0,150),"
+                                                          "stop:1 rgba(0,0,0,0));}");
+    ui->mini_pushbutton->setStyleSheet("QPushButton{background-color:transparent}\
+                                      QPushButton:hover{background:qlineargradient"
+                                                        "(spread:pad,x1:0,y1:0,x2:0,y2:1,"
+                                                        "stop:0 rgba(165,200,200,150),"
+                                                        "stop:1 rgba(0,0,0,0));}");
     //设置Logo
     setWindowIcon(QIcon(":/other/image/logo.ico"));
     ui->search_icon->setIcon(QIcon(":/other/image/Magnifier.svg"));
@@ -89,23 +114,19 @@ void Widget::display()
 
     //设置三个底部按钮
     QIcon p = QPixmap(QString(":/other/image/syssetting.svg"));
-    this->Setting_Button->setStyleSheet("text-align: center;"
-                                      "background-color:transparent");
     this->Setting_Button->setIcon(p);
     this->Setting_Button->setIconSize(QSize(40, 40));
+    this->Setting_Button->setGeometry(0, 600, 50, 50);
 
     p = QPixmap(QString(":/other/image/file.svg"));
-    this->Sharing_Button->setStyleSheet("text-align: center;"
-                                      "background-color:transparent");
     this->Sharing_Button->setIcon(p);
     this->Sharing_Button->setIconSize(QSize(20, 20));
+    this->Sharing_Button->setGeometry(60, 620, 25, 25);
 
     p = QPixmap(QString(":/other/image/logo.ico"));
-    this->About_Button->setStyleSheet("text-align: center;"
-                                    "background-color:transparent");
     this->About_Button->setIcon(p);
     this->About_Button->setIconSize(QSize(20, 20));
-
+    this->About_Button->setGeometry(90, 620, 25, 25);
     //好友列表（第一个列表）
     this->usrlist->setFixedSize(QSize(width(), height()-200));
 }
@@ -174,6 +195,7 @@ void Widget::on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason)
 
 void Widget::on_About_Button_clicked()              //显示About us信息
 {
+    qDebug() << "helo wolrd";
     QString text;
     text += QString("Author  : LiKe, LiuYang\n");
     text += QString("Date     : 2017-08-05\n");
@@ -186,13 +208,18 @@ void Widget::on_About_Button_clicked()              //显示About us信息
 }
 
 void Widget::mousePressEvent(QMouseEvent *event)
-{ 
-    this->dPos = event->globalPos() - this->pos(); // 移动后部件所在的位置
+{
+    int y = event->globalPos().ry()-this->pos().ry();
+    this->dPos = event->globalPos()-this->pos(); // 移动后部件所在的位置
+    mov = false;
+    if( y > 0 && y < 35)
+      mov = true;
 }
 
 void Widget::mouseMoveEvent(QMouseEvent *event)
 {
-     this->move(event->globalPos() - this->dPos);
+    if(mov)
+        this->move(event->globalPos()-this->dPos);
 }
 
 void Widget::on_mini_pushbutton_clicked()
@@ -202,5 +229,88 @@ void Widget::on_mini_pushbutton_clicked()
 
 void Widget::on_close_pushbutton_clicked()
 {
-     QApplication::quit();
+    QApplication::quit();
+}
+
+void Widget::updateHide()
+{
+    if( !HideOrNot() )
+        return;
+    int x = this->pos().rx();
+    int y = this->pos().ry() - 100;
+    y = y <= -550 ? -645 : y;
+    move(x, y);
+    if( y == -645 )
+    {
+        timer_Show->start();
+        timer_Hide->stop();
+    }
+}
+
+void Widget::updateShow()
+{
+    if( !ShowOrNot() )
+        return;
+    int x = this->pos().rx();
+    int y = this->pos().ry() + 100;
+    y = y >= -100 ? 0 : y;
+    move(x, y);
+    if( y == 0 )
+    {
+        timer_Show->stop();
+        timer_Inter->start();
+    }
+}
+
+void Widget::updateInter()
+{
+    if (!this->geometry().contains(QCursor::pos())) //判断鼠标是否在区域内
+    {
+        timer_Hide->start();
+        timer_Inter->stop();
+    }
+}
+
+bool Widget::HideOrNot()
+{
+    // 获取屏幕宽度
+    if( this->pos().ry() < 10 )
+        return true;
+    else
+        return false;
+}
+
+bool Widget::ShowOrNot()
+{
+    int x  = QCursor::pos().rx();
+    int y  = QCursor::pos().ry();
+    int sx = this->pos().rx();
+    if( y<=5 && x>=sx && x<=(sx+300) )
+        return true;
+    else
+        return false;
+}
+
+
+
+void Widget::iconIsActived(QSystemTrayIcon::ActivationReason reason)
+{
+   switch(reason)
+   {
+   //点击托盘显示窗口
+   case QSystemTrayIcon::Trigger:
+   {
+        break;
+   }
+   //双击托盘显示窗口
+   case QSystemTrayIcon::DoubleClick:
+   {
+        timer_Show->start();
+        timer_Hide->stop();
+        timer_Inter->stop();
+        break;
+   }
+   default:
+        break;
+   }
 }

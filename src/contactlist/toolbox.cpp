@@ -9,7 +9,7 @@ Toolbox::Toolbox(QWidget *parent) : QToolBox(parent), index_old(0)
 {
     usrtable.clear();
     this->Readfile();
-    this->setStyleSheet("QToolBoxButton { min-height:30px; }");
+    this->setStyleSheet("background-color : #eefefe;");
 
     connect(this, SIGNAL(currentChanged(int)),
             this, SLOT(slot_currentChanged(int)));
@@ -57,7 +57,7 @@ void Toolbox::addContacts(userMessage *someone)
     button->move(0, it.value()->count()*50);
     button->setStyleSheet("text-align: left;");
 
-    button->setText(someone->getName()+someone->getSignature());
+    button->setText(someone->getName());
     button->setIcon(p);
     button->setIconSize(QSize(35, 35));
 

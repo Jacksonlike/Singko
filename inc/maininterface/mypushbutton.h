@@ -9,7 +9,6 @@ public:
     MyPushbutton(QWidget *parent = 0);
     ~MyPushbutton();
 
-    void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
 
 };
