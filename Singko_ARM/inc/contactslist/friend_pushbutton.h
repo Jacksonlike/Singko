@@ -6,16 +6,7 @@
 #include "userMessage.h"
 #include <QHostAddress>
 #include "chatwindow.h"
-#include <Qtimer>
-
-//==============================================================
-/*                        FriendPushbutton
-** 上线好友显示的按钮，该类主要管理两类信息，图标信息，另外就是该图标对应的
-** 用户实体信息，构造时传入userMessage，析构时释放对应的userMessage
-** buttonTwinkle：收到消息闪烁（当收到好友消息，若对应聊天窗口没有打开，
-** 则开启定时器周期性切换样式表，实现闪烁功能）
-*/
-//==============================================================
+#include <QTimer>
 
 
 class FriendPushbutton:public QPushButton
@@ -23,18 +14,20 @@ class FriendPushbutton:public QPushButton
     Q_OBJECT
 public:
     FriendPushbutton(userMessage* u, QWidget *parent = 0);
-
     ~FriendPushbutton();
+    void setdefaultStytle();
+    void settwinkleStytle();
 
     inline int  getFlag();
     inline void setFlag(int n);
     inline userMessage * getUser();
-    void setdefaultStytle();
-    void settwinkleStytle();
+
+
 
 public slots:
+
     void revFriendMessage(QString str, QHostAddress ipaddr);
-    void mouseDoubleClickEvent(QMouseEvent * event);
+    void mousePressEvent(QMouseEvent * event);
     void buttonTwinkle();
     void closeWindow();
 
@@ -43,16 +36,15 @@ signals:
 
 private:
     userMessage *user;
+    int push_flag;
     QTimer twinkle;
     QString friendmessage;
-    int pushFlag;       //用来标记聊天窗是否已打开
-    bool buttonFlag;    //用来标记按钮当前显示的状态
 };
 
 
 inline void FriendPushbutton::setFlag(int n)
 {
-    pushFlag = n;
+    push_flag = n;
 }
 
 inline userMessage *FriendPushbutton::getUser()
@@ -62,7 +54,7 @@ inline userMessage *FriendPushbutton::getUser()
 
 inline int FriendPushbutton::getFlag()
 {
-    return pushFlag;
+    return push_flag;
 }
 
 #endif // FRIEND_PUSHBUTTON_H

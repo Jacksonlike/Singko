@@ -18,7 +18,9 @@
 
 //==============================================================
 /*                       main interface
-** 完成界面的初始化。
+** 初始化界面需要包含主要功能控件的加载，以及获取自己的设置信息和在线用户列
+** 表。此外有信号和槽接口与子界面进行通信。
+**
 */
 //==============================================================
 namespace Ui {
@@ -31,52 +33,27 @@ class Widget : public QWidget
 
 public:
     explicit Widget(QWidget *parent = 0);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
     void display();
     ~Widget();
 
 public slots:
-    void iconIsActived(QSystemTrayIcon::ActivationReason reason);
     void setBackground(int num);
     void setHeadprotrait(int num);
     void setUsrname(QString name);
-    void setSignature(QString signature);
 
 
 private slots:
-    void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason);
-    void on_About_Button_clicked();
-    void on_mini_pushbutton_clicked();
     void on_close_pushbutton_clicked();
-    void updateHide();
-    void updateShow();
-    void updateInter();
-    bool HideOrNot();
-    bool ShowOrNot();
+
 
 private:
     Ui::Widget *ui;
     ownMessage* master;
     Toolbox *usrlist;
-    LineEdit *signature;
     QSystemTrayIcon *mSysTrayIcon;
     MyPushbutton *Setting_Button;
     MyPushbutton *Sharing_Button;
-    MyPushbutton *About_Button;
-    QTimer *timer_Hide;
-    QTimer *timer_Show;
-    QTimer *timer_Inter;
-    QPropertyAnimation *edgeMoveAnimation;
-    QPoint dPos;
-    int EdgeMoveTime;
-    int EdgeHideTime;
-    bool mov;
 
- //   Mysocket *myudp_socket;
-
-//    Toolbox *grouplist;
-//    Toolbox *recentist;
 };
 
 #endif // WIDGET_H
