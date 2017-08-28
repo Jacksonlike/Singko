@@ -4,7 +4,7 @@
 #include <QCoreApplication>
 #include <mysocket.h>
 
-extern Mysocket *myudp_socket;
+extern Mysocket *myudpSocket;
 Toolbox::Toolbox(QWidget *parent) : QToolBox(parent), index_old(0)
 {
     usrtable.clear();
@@ -13,21 +13,22 @@ Toolbox::Toolbox(QWidget *parent) : QToolBox(parent), index_old(0)
 
     connect(this, SIGNAL(currentChanged(int)),
             this, SLOT(slot_currentChanged(int)));
-    connect(myudp_socket, SIGNAL(sigAddFriend(userMessage *)),
+    connect(myudpSocket, SIGNAL(sigAddFriend(userMessage *)),
                         this, SLOT(addContacts(userMessage *)));
-    connect(myudp_socket, SIGNAL(sigClosed(QString)),
-                        this, SLOT(deleteContacts(QString))); 
+    connect(myudpSocket, SIGNAL(sigClosed(QString)),
+                        this, SLOT(deleteContacts(QString)));
     //与Socket增加好友的信号连接
 }
 
 Toolbox::~Toolbox()
 {
-    Writefile();
+//    Writefile();
 }
 
 void Toolbox::addContacts(userMessage *someone)
 {
     qDebug()<<"addcontacts!";
+
     //判断是否已经添加该用户
     quint32 IPnum = QHostAddress(someone->getIP()).toIPv4Address();
     QMap<quint32, FriendPushbutton *>::const_iterator its = usrtable.find(IPnum);
@@ -36,7 +37,6 @@ void Toolbox::addContacts(userMessage *someone)
         qDebug()<<someone->getIP()<<" had onlion";
         return;
     }
-
 
     QMap <int, GroupWidget *>::const_iterator it
                     = friendlist.find(someone->getGroup());
@@ -53,24 +53,25 @@ void Toolbox::addContacts(userMessage *someone)
 
     QIcon p = QPixmap(QString(":/head/head/default_head%1.jpg")
                                 .arg(someone->getHeadprotrait()));
-    button->resize(QSize(300, 50));
+    button->resize(QSize(295, 50));
     button->move(0, it.value()->count()*50);
-    button->setStyleSheet("text-align: left;");
+//    button->setStyleSheet("text-align: left;");
 
     button->setText(someone->getName());
     button->setIcon(p);
-    button->setIconSize(QSize(35, 35));
+    button->setIconSize(QSize(40, 40));
 
-    connect(myudp_socket, SIGNAL(sigRevText(QString,QHostAddress)),
+    connect(myudpSocket, SIGNAL(sigRevText(QString,QHostAddress)),
             button,SLOT(revFriendMessage(QString,QHostAddress)));
 
     it.value()->countplus();                //对应的分组里面的人数增加一人
     it.value()->Buttonlist.append(button);  //对应分组里面的按钮增加一个
-//    it.value()->resize();
 
     //将用户添加到usrtable进行管理
     this->usrtable.insert(IPnum, button);
-    this->update();
+    it.value()->getWidget()->update();
+
+    button->show();
     emit currentChanged(index_old);
 }
 
@@ -92,7 +93,7 @@ void Toolbox::deleteContacts(QString IP)
     list.removeOne(it.value());
 
     delete it.value();      //析构已删除的按钮和设置对应联系人下线
-    usrtable.remove(IPnum); //删除联系人列表中对应人
+    usrtable.remove(IPnum); //在联系人列表中删除对应联系人
 
     //刷新该分组列表
     FriendPushbutton *p;
@@ -120,7 +121,6 @@ void Toolbox::slot_currentChanged(int index)
     index_old = index;
 }
 
-//私有函数
 void Toolbox::Readfile()
 {
     //读取用户配置信息

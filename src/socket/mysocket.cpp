@@ -53,7 +53,7 @@ void Mysocket::sendMessage(QHostAddress ipaddr,QString str)
     if(flag == -1)//下线广播
     {
         ownMessage *mymessage = new ownMessage;
-        send_mes.setSendText(-1, mymessage);
+        send_mes.setSendText(3, mymessage);
         qint64 n = udpsocket->writeDatagram(send_mes.getSendText(),
                    send_mes.getSendText().size(),
                    QHostAddress::Broadcast, 50001);
@@ -118,4 +118,3 @@ void Mysocket::recMessage()
         rec_mes.cleanRev();
      }
 }
-

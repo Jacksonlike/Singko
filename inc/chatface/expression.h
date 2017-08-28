@@ -13,7 +13,7 @@ class expression : public QDialog
 
 public:
     explicit expression(QDialog *parent = 0);
-    void init_expression();
+    void initExpression();
     ~expression();
 
 private:

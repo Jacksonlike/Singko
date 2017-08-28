@@ -15,21 +15,20 @@ TEMPLATE = app
 
 SOURCES += src/chatface/chatwindow.cpp \
     src/chatface/expression.cpp \
-    src/contactlist/friend_pushbutton.cpp \
     src/contactlist/toolbox.cpp \
     src/maininterface/widget.cpp \
-    src/message/Message.cpp \
     src/message/ownMessage.cpp \
     src/message/udpmessage.cpp \
     src/message/userMessage.cpp \
     src/socket/mysocket.cpp \
     src/main.cpp \
     src/maininterface/lineedit.cpp \
-    src/maininterface/mypushbutton.cpp
+    src/maininterface/mypushbutton.cpp \
+    src/socket/mytcp.cpp \
+    src/contactlist/friendpushbutton.cpp
 
 HEADERS  += inc/chatface/chatwindow.h \
     inc/chatface/expression.h \
-    inc/contactslist/friend_pushbutton.h \
     inc/contactslist/toolbox.h \
     inc/maininterface/widget.h \
     inc/message/Message.h \
@@ -39,7 +38,9 @@ HEADERS  += inc/chatface/chatwindow.h \
     inc/socket/udpmessage.h \
     inc/contactslist/groupwidget.h \
     inc/maininterface/lineedit.h \
-    inc/maininterface/mypushbutton.h
+    inc/maininterface/mypushbutton.h \
+    inc/socket/mytcp.h \
+    inc/contactslist/friendpushbutton.h
 
 INCLUDEPATH += inc/chatface \
     inc/contactslist \

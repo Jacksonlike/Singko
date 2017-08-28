@@ -1,12 +1,12 @@
 #include "widget.h"
 #include "ui_maininterface.h"
 
-extern Mysocket *myudp_socket;
+extern Mysocket *myudpSocket;
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
-    myudp_socket->sendMessage(QHostAddress::Broadcast,0);//上线就广播
+    myudpSocket->sendMessage(QHostAddress::Broadcast,0);//上线就广播
 
     ui->setupUi(this);
     this->master = new ownMessage;
@@ -28,22 +28,22 @@ Widget::Widget(QWidget *parent) :
     this->display();
 
     //==============
-    userMessage *someone = new userMessage("127.0.0.1");
-    someone->setName("meimie");
-    someone->setGroup(2);
-    usrlist->addContacts(someone);
+//    userMessage *someone = new userMessage("192.168.1.81");
+//    someone->setName("meimie");
+//    someone->setGroup(2);
+//    usrlist->addContacts(someone);
 
-    someone = new userMessage("192.168.1.127");
-    someone->setGroup(1);
-    usrlist->addContacts(someone);
+//    someone = new userMessage("192.168.1.81");
+//    someone->setGroup(1);
+//    usrlist->addContacts(someone);
 
-    someone = new userMessage("192.168.1.120");
-    someone->setGroup(0);
-    usrlist->addContacts(someone);
+//    someone = new userMessage("192.168.1.120");
+//    someone->setGroup(0);
+//    usrlist->addContacts(someone);
 
-    someone = new userMessage("192.168.1.122");
-    someone->setGroup(0);
-    usrlist->addContacts(someone);
+//    someone = new userMessage("192.168.1.122");
+//    someone->setGroup(0);
+//    usrlist->addContacts(someone);
     //===============
     //=======界面吸附属性的设置========
     EdgeHideTime = 10;
@@ -63,7 +63,7 @@ Widget::Widget(QWidget *parent) :
 
 void Widget::display()
 {
-
+    this->setGeometry(960, 0, 300, 650);
     //新建托盘要显示的icon
     QIcon icon = QIcon(":/other/image/logo.ico");
     //将icon设到QSystemTrayIcon对象中
@@ -83,16 +83,17 @@ void Widget::display()
     ui->tabWidget->setTabIcon(2, QIcon(":/other/image/recentcontact.svg"));
     ui->tabWidget->setStyleSheet("QTabBar::tab{width:100px;}");
 
-    ui->close_pushbutton->setStyleSheet("QPushButton{background-color:transparent}\
-                                        QPushButton:hover{background:qlineargradient"
+    ui->close_pushbutton->setStyleSheet("QPushButton{border-radius: 5px;background-color:transparent}\
+                                        QPushButton:hover{border-radius: 5px;background:qlineargradient"
                                                           "(spread:pad,x1:0,y1:0,x2:0,y2:1,"
                                                           "stop:0 rgba(180,0,0,150),"
                                                           "stop:1 rgba(0,0,0,0));}");
-    ui->mini_pushbutton->setStyleSheet("QPushButton{background-color:transparent}\
+    ui->mini_pushbutton->setStyleSheet("QPushButton{border-radius: 5px;background-color:transparent}\
                                       QPushButton:hover{background:qlineargradient"
                                                         "(spread:pad,x1:0,y1:0,x2:0,y2:1,"
                                                         "stop:0 rgba(165,200,200,150),"
-                                                        "stop:1 rgba(0,0,0,0));}");
+                                                        "stop:1 rgba(0,0,0,0));"
+                                                        "border-radius: 5px；}");
     //设置Logo
     setWindowIcon(QIcon(":/other/image/logo.ico"));
     ui->search_icon->setIcon(QIcon(":/other/image/Magnifier.svg"));
@@ -105,7 +106,7 @@ void Widget::display()
 
     //设置背景图 用户名 头像
     this->setBackground(master->getBackground());
-    this->setHeadprotrait(master->getBackground());
+    this->setHeadprotrait(master->getHeadprotrait());
     this->setUsrname(master->getName());
 
     //设置个性签名
@@ -133,8 +134,8 @@ void Widget::display()
 
 Widget::~Widget()
 {
-    myudp_socket->setFlag(-1);
-    myudp_socket->sendMessage(QHostAddress::Broadcast,"-1");//退出发送广播
+    myudpSocket->setFlag(-1);
+    myudpSocket->sendMessage(QHostAddress::Broadcast,"-1");//退出发送广播
     delete this->usrlist;
     delete this->master;
     delete this->signature;
@@ -160,6 +161,7 @@ void Widget::setBackground(int num)
 
 void Widget::setHeadprotrait(int num)
 {
+//    qDebug() << num;
     QIcon headprotrait = QPixmap(QString(":/head/head/default_head%1.jpg").arg(num));
     ui->head->setIcon(headprotrait);
     ui->head->setIconSize(QSize(60, 60));
@@ -290,8 +292,6 @@ bool Widget::ShowOrNot()
     else
         return false;
 }
-
-
 
 void Widget::iconIsActived(QSystemTrayIcon::ActivationReason reason)
 {

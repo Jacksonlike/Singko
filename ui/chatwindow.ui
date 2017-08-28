@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>479</height>
+    <width>470</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,6 +45,12 @@
              </item>
              <item>
               <widget class="QLabel" name="label_username">
+               <property name="minimumSize">
+                <size>
+                 <width>80</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string>sfadsf</string>
                </property>
@@ -237,7 +243,7 @@ gridline-color: rgb(0, 0, 255);</string>
           <widget class="QTextBrowser" name="textBrowser_friendInformation">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>180</width>
              <height>200</height>
             </size>
            </property>
@@ -252,7 +258,7 @@ gridline-color: rgb(0, 0, 255);</string>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;friend information:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Contacts Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -383,7 +389,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QPushButton" name="pushButton_10">
+            <widget class="QPushButton" name="pushButton_sendfile">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -403,12 +409,12 @@ p, li { white-space: pre-wrap; }
               <set>Qt::ImhNone</set>
              </property>
              <property name="text">
-              <string>file</string>
+              <string>File</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_11">
+            <widget class="QPushButton" name="pushButton_sendir">
              <property name="minimumSize">
               <size>
                <width>30</width>
@@ -422,12 +428,12 @@ p, li { white-space: pre-wrap; }
               </size>
              </property>
              <property name="text">
-              <string>dir</string>
+              <string>Dir</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_12">
+            <widget class="QPushButton" name="pushButton_cal">
              <property name="minimumSize">
               <size>
                <width>30</width>
@@ -441,7 +447,7 @@ p, li { white-space: pre-wrap; }
               </size>
              </property>
              <property name="text">
-              <string>cal</string>
+              <string>Cal</string>
              </property>
             </widget>
            </item>
@@ -492,7 +498,7 @@ p, li { white-space: pre-wrap; }
               <widget class="QPushButton" name="pushButton_2">
                <property name="minimumSize">
                 <size>
-                 <width>50</width>
+                 <width>60</width>
                  <height>20</height>
                 </size>
                </property>
@@ -511,7 +517,7 @@ p, li { white-space: pre-wrap; }
               <widget class="QPushButton" name="pushButton">
                <property name="minimumSize">
                 <size>
-                 <width>50</width>
+                 <width>60</width>
                  <height>20</height>
                 </size>
                </property>
@@ -531,73 +537,6 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
         </layout>
-       </item>
-       <item>
-        <widget class="QTableWidget" name="tableWidget">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>110</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>160</width>
-           <height>110</height>
-          </size>
-         </property>
-         <attribute name="horizontalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderCascadingSectionResizes">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderDefaultSectionSize">
-          <number>37</number>
-         </attribute>
-         <attribute name="verticalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderDefaultSectionSize">
-          <number>20</number>
-         </attribute>
-         <attribute name="verticalHeaderHighlightSections">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="verticalHeaderMinimumSectionSize">
-          <number>10</number>
-         </attribute>
-         <row>
-          <property name="text">
-           <string/>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string/>
-          </property>
-         </row>
-         <column>
-          <property name="text">
-           <string>名称</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>类型</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>大小</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>路径</string>
-          </property>
-         </column>
-        </widget>
        </item>
       </layout>
      </item>

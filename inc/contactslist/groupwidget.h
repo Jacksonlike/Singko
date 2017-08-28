@@ -2,7 +2,7 @@
 #define GROUPWIDGET
 
 #include <QWidget>
-#include <friend_pushbutton.h>
+#include <friendpushbutton.h>
 
 class GroupWidget
 {

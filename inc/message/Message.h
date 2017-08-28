@@ -2,6 +2,7 @@
 #define MESSAGE_H
 
 #include <QObject>
+#include <QtDebug>
 
 //==============================================================
 /*                        message
@@ -16,18 +17,18 @@ class Message : public QObject
 {
     Q_OBJECT
 public:
-    explicit Message(QObject *parent = 0);
+    explicit Message(QObject *parent = 0):QObject(parent) {}
 
     inline QString getName();
     inline QString getSignature();
     inline QString getIP();
     inline QString getHostname();
     inline int  getHeadprotrait();
-    inline void setName(QString name);
 
+    inline void setName(QString name);
     inline void setHostname(QString hostname);
     inline void setHeadprotrait(int num);
-    void setIP(QString IP);
+    inline void setIP(QString IP);
 
 signals:
     void NameChanged(QString name);
@@ -37,6 +38,7 @@ signals:
 
 public slots:
     inline void setSignature(QString sig);
+
 private:
     virtual void Readfile()  = 0;
     virtual void Writefile() = 0;
@@ -96,4 +98,10 @@ inline void Message::setHeadprotrait(int num)
     emit HeadprotraitChanged(num);
 }
 
+
+inline void Message::setIP(QString IP)
+{
+    this->userIP = IP;
+//    Readfile();
+}
 #endif // MESSAGE_H

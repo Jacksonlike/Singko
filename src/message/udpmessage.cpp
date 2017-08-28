@@ -1,9 +1,10 @@
 #include "udpmessage.h"
+#include <QtDebug>
 
 udpmessage::udpmessage(QObject *parent) : QObject(parent)
 {
-    rev_text.clear();
-    send_text.clear();
+    revText.clear();
+    sendText.clear();
 }
 
 void udpmessage::setRevText(char *ch)
@@ -18,65 +19,38 @@ void udpmessage::setRevText(char *ch)
             if(*p != '^')
                 mes[i] += *p;
             if(*p == '^')
-            {
                 i++;
-            }
             p++;
         }
-        rev_message = new userMessage;
-        rev_message->setHeadprotrait(mes[1].toInt());
-        rev_message->setName(mes[2]);
-        rev_message->setHostname(mes[3]);
-        rev_message->setSignature(mes[4]);
-        rev_message->setIP(mes[5]);
+
+        revMessage = new userMessage;
+        revMessage->setHeadprotrait(mes[1].toInt());
+        revMessage->setName(mes[2]);
+        revMessage->setHostname(mes[3]);
+        revMessage->setSignature(mes[4]);
+        revMessage->setIP(mes[5]);
     }
     else if(*ch == '2') //收到的为普通消息
     {
-        rev_text = ch+2;
+        revText = ch+2;
     }
 }
 
-void udpmessage::cleanRev()
-{
-    rev_text.clear();
-}
-
-QByteArray udpmessage::getSendText()
-{
-    return send_text;
-}
-
-void udpmessage::cleanSend()
-{
-    send_text.clear();
-}
-
-QString udpmessage::getRevText()
-{
-    return rev_text;
-}
-
-userMessage* udpmessage::getRevMessage()
-{
-    return rev_message;
-}
-
-
-void udpmessage::setSendText(int f,ownMessage *mes)
+void udpmessage::setSendText(int label, ownMessage *mes)
 {
     //标记位+'^'+个人信息
     QString str = QString("%1^%2").arg(f).arg(mes->getHeadprotrait())
             +"^"+mes->getName()+"^"+mes->getHostname()+"^"
            +mes->getSignature()+"^"+mes->getIP();
-    send_text = send_text.append(str);
+    sendText = sendText.append(str);
 
 }
 
-void udpmessage::setSendText(int f,QString str)
+void udpmessage::setSendText(int label, QString str)
 {
     //标记位+'^'+内容
-    send_text = send_text.append(QString("%1").arg(f));
-    send_text = send_text.append('^');
-    send_text = send_text.append(str);
+    sendText = sendText.append(QString("%1").arg(label));
+    sendText = sendText.append('^');
+    sendText = sendText.append(str);
 }
 

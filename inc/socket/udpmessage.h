@@ -12,20 +12,44 @@ class udpmessage : public QObject
 public:
     explicit udpmessage(QObject *parent = 0);
 
-    void setSendText(int f,QString str);//普通消息
-    void setSendText(int f,ownMessage *mes);//用户信息
-    void cleanSend();
-    QByteArray getSendText();
-
+    void setSendText(int label,QString str);//普通消息
+    void setSendText(int label, ownMessage *mes);//用户信息
     void setRevText(char* ch);//普通消息
-    void cleanRev();
-    QString getRevText();
-    userMessage* getRevMessage();
+    inline void cleanSend();
+    inline void cleanRev();
+
+    inline QString getRevText();
+    inline QByteArray getSendText();
+    inline userMessage* getRevMessage();
 
 private:
-    QString rev_text;
-    userMessage *rev_message;
-    QByteArray  send_text;
+    QString revText;
+    QByteArray  sendText;
+    userMessage *revMessage;
 };
 
+inline void udpmessage::cleanRev()
+{
+    revText.clear();
+}
+
+inline QByteArray udpmessage::getSendText()
+{
+    return sendText;
+}
+
+inline void udpmessage::cleanSend()
+{
+    sendText.clear();
+}
+
+inline QString udpmessage::getRevText()
+{
+    return revText;
+}
+
+inline userMessage* udpmessage::getRevMessage()
+{
+    return revMessage;
+}
 #endif // UDPMESSAGE_H

@@ -21,13 +21,6 @@ userMessage::~userMessage()
     Writefile();
 }
 
-bool userMessage::isMe(QString IP)
-{
-    if (IP == getIP())
-        return true;
-    return false;
-}
-
 //私有函数
 void userMessage::Readfile()
 {

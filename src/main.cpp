@@ -1,12 +1,14 @@
 #include <widget.h>
 #include <QApplication>
+#include <mytcp.h>
 
-Mysocket *myudp_socket;
-
+Mysocket *myudpSocket;
+Mytcp *mytcpSocket;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    myudp_socket = new Mysocket;
+    myudpSocket = new Mysocket;
+    mytcpSocket = new Mytcp;
     Widget w;
     w.show();
 

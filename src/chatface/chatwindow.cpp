@@ -1,31 +1,33 @@
-#include "ui_chatwindow.h"
-#include "expression.h"
-#include "chatwindow.h"
-#include "mysocket.h"
-#include "widget.h"
 #include <QDebug>
 #include <QDir>
 #include <QTextDocumentFragment>
 #include <QColor>
+#include <QFileDialog>
+#include <QBitmap>
+#include "ui_chatwindow.h"
+#include "mytcp.h"
+#include "expression.h"
+#include "chatwindow.h"
+#include "mysocket.h"
+#include "widget.h"
 
-extern Mysocket* myudp_socket;
+extern Mysocket *myudpSocket;
+extern Mytcp *mytcpSocket;
 ChatWindow::ChatWindow(QWidget *parent, userMessage * fri):
     QDialog(parent),
-    ui(new Ui::ChatWindow),friendmessage(fri)
+    ui(new Ui::ChatWindow), friendmessage(fri),
+    mymessage(new ownMessage), myexpression(new expression(this))
 {
     ui->setupUi(this);
-//    dPos = this->pos();
-    init_button();
-    mymessage = new ownMessage;
-    myexpression = new expression(this);
-    qDebug()<<fri->getIP();
 
-    show_friendInformation(friendmessage);
     display();
+
+    connect(mytcpSocket, SIGNAL(sigRevfile(QHostAddress,QString)),
+            this,SLOT(slotRevFile(QHostAddress,QString)));
 }
 
 
-void ChatWindow::init_button()
+void ChatWindow::initButton()
 {
     ui->pushButton_video->setIcon(QIcon(QPixmap(":/other/image/vedio.ico")));
     ui->pushButton_video->setIconSize(QSize(28,28));
@@ -51,13 +53,44 @@ void ChatWindow::init_button()
 
     ui->pushButton_font->setIcon(QIcon(":/other/image/font.ico"));
     ui->pushButton_font->setIconSize(QSize(20,20));
+
+    //按钮格式设置
+    ui->close_pushbutton->setStyleSheet("QPushButton{background-color:transparent}"
+                                      "QPushButton:hover{background:qlineargradient"
+                                      "(spread:pad,x1:0,y1:0,x2:0,y2:1,"
+                                      "stop:0 rgba(250,0,0,150),"
+                                      "stop:1 rgba(0,0,0,0));}");
+    ui->mini_pushbutton->setStyleSheet("QPushButton{background-color:transparent}"
+                                      "QPushButton:hover{background:qlineargradient"
+                                      "(spread:pad,x1:0,y1:0,x2:0,y2:1,"
+                                      "stop:0 rgba(0,0,0,50),"
+                                      "stop:1 rgba(0,0,0,0));}");
+    this->setWindowTitle(friendmessage->getName());
+
+    ui->pushButton_sendfile->setStyleSheet("QPushButton{background-color:#FFFFFF}\
+                                           QPushButton:hover{background-color:#a5face;}");
+    ui->pushButton_sendir->setStyleSheet("QPushButton{background-color:#FFFFFF}\
+                                         QPushButton:hover{background-color:#a5face;}");
+    ui->pushButton_cal->setStyleSheet("QPushButton{background-color:#FFFFFF}\
+                                       QPushButton:hover{background-color:#a5face;}");
+    ui->pushButton_2->setStyleSheet("QPushButton{background-color:#FFFFFF}\
+                                     QPushButton:hover{background-color:#a5face;}");
+    ui->pushButton->setStyleSheet("QPushButton{background-color:#FFFFFF}\
+                                     QPushButton:hover{background-color:#a5face;}");
+    ui->pushButton_font->setStyleSheet("QPushButton{background-color:transparent}\
+                                     QPushButton:hover{background-color:#a5face;}");
+    ui->pushButton_picture->setStyleSheet("QPushButton{background-color:transparent}\
+                                    QPushButton:hover{background-color:#a5face;}");
+    ui->pushButton_FaceExpression->setStyleSheet("QPushButton{background-color:transparent}\
+                                    QPushButton:hover{background-color:#a5face;}");
+
 }
 
 
-void ChatWindow::show_friendInformation(userMessage* friendMessage)
+void ChatWindow::showFriendinformation(userMessage* friendMessage)
 {
-   ui->textBrowser_friendInformation->append("Username："+friendMessage->getName());
-   ui->textBrowser_friendInformation->append("Hostname："+friendMessage->getHostname());
+   ui->textBrowser_friendInformation->append("Username: "+friendMessage->getName());
+   ui->textBrowser_friendInformation->append("Hostname: "+friendMessage->getHostname());
    ui->textBrowser_friendInformation->append("Signature: "+friendMessage->getSignature());
    ui->textBrowser_friendInformation->append("Ipaddress: "+friendMessage->getIP());
    ui->label_username->setText(friendMessage->getName());
@@ -71,6 +104,7 @@ void ChatWindow::show_friendInformation(userMessage* friendMessage)
 
 ChatWindow::~ChatWindow()
 {
+    emit chatWindowclosed();
     delete myexpression;
     delete mymessage;
     delete ui;
@@ -82,7 +116,7 @@ void ChatWindow::on_pushButton_FaceExpression_clicked()
    // myexpression->exec();
 }
 
-void ChatWindow::slots_expression_clicked(QTableWidgetItem* Item)
+void ChatWindow::slotsExpressionClicked(QTableWidgetItem* Item)
 {
 
     int num = Item->row()*8 + Item->column();
@@ -93,8 +127,8 @@ void ChatWindow::slots_expression_clicked(QTableWidgetItem* Item)
     QString filename(":/face/face/"+*i);
     QTextImageFormat imageFormat;   //保存图片格式对象
     imageFormat.setName(filename);
-    imageFormat.setHeight(20);
-    imageFormat.setWidth(20);
+    imageFormat.setHeight(40);
+    imageFormat.setWidth(40);
 
     //获取当前光标
     QTextCursor cursor = ui->textEdit_sendmessage->textCursor();
@@ -106,16 +140,16 @@ void ChatWindow::slots_expression_clicked(QTableWidgetItem* Item)
 
 void ChatWindow::on_pushButton_2_clicked()//发送聊天消息，并更新自己界面
 {
+    QFont font ( "Microsoft YaHei", 10, 75);
+    ui->textBrowser_ChatLog->setFont(font);
 
-    ui->textBrowser_ChatLog->setTextColor(QColor(255,0,0));
-    ui->textBrowser_ChatLog->setFontPointSize(12);
     QString text = ui->textEdit_sendmessage->toHtml();
     qDebug() << text;
     if (text.isEmpty())
         return;
     ui->textBrowser_ChatLog->append(mymessage->getName()+":");
     ui->textBrowser_ChatLog->append(text);
-    myudp_socket->sendMessage(QHostAddress(friendmessage->getIP()),
+    myudpSocket->sendMessage(QHostAddress(friendmessage->getIP()),
                               ui->textEdit_sendmessage->toHtml());
     ui->textEdit_sendmessage->clear();
 }
@@ -125,13 +159,14 @@ void ChatWindow::on_pushButton_clicked()
     delete this;
 }
 
-void ChatWindow::slot_button_message(QString str)
+void ChatWindow::slotButtonMessage(QString str)
 {
-    ui->textBrowser_ChatLog->setTextColor(QColor(0,255,0));
-    ui->textBrowser_ChatLog->setFontPointSize(12);
+    QFont font ( "Microsoft YaHei", 10, 75);
+    ui->textBrowser_ChatLog->setFont(font);
     ui->textBrowser_ChatLog->append(friendmessage->getName()+":");
     ui->textBrowser_ChatLog->append(str);
 }
+
 
 
 void ChatWindow::on_mini_pushbutton_clicked()
@@ -171,21 +206,43 @@ void ChatWindow::keyPressEvent(QKeyEvent *event)
 
 void ChatWindow::display()
 {
+    initButton();
+    showFriendinformation(friendmessage);
+
     setWindowIcon(QIcon(":/other/image/logo.ico"));
     this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setStyleSheet("border-radius: 5px");
 
-    //按钮格式设置
-    ui->close_pushbutton->setStyleSheet("QPushButton{background-color:transparent}"
-                                      "QPushButton:hover{background:qlineargradient"
-                                      "(spread:pad,x1:0,y1:0,x2:0,y2:1,"
-                                      "stop:0 rgba(250,0,0,150),"
-                                      "stop:1 rgba(0,0,0,0));}");
-    ui->mini_pushbutton->setStyleSheet("QPushButton{background-color:transparent}"
-                                      "QPushButton:hover{background:qlineargradient"
-                                      "(spread:pad,x1:0,y1:0,x2:0,y2:1,"
-                                      "stop:0 rgba(0,0,0,50),"
-                                      "stop:1 rgba(0,0,0,0));}");
-    this->setWindowTitle(friendmessage->getName());
+    QPalette pal;
+    QPixmap pic = QPixmap(QString(":/other/image/chatbackground.png"));
+
+    pic.setMask(QBitmap(QPixmap(QString(":/other/image/chatbackgroundmask.png"))));
+    pal.setBrush(QPalette::Background, QBrush(pic));
+    setPalette(pal);
 }
 
 
+
+void ChatWindow::on_pushButton_sendfile_clicked()
+{
+    QString file = QFileDialog::getOpenFileName(this);
+    qDebug()<<"file : "<<file;
+    mytcpSocket->sendFile(QHostAddress(friendmessage->getIP()), file);
+    ui->textBrowser_ChatLog->append("send succeed :"+file);
+}
+
+void ChatWindow::slotRevFile(QHostAddress addrip, QString file)
+{
+    qDebug()<<"slotRevFile";
+    if(addrip.toString() != friendmessage->getIP())
+        return;
+    QString filename = file.section('^',0, 0);
+    QString filetext = file.section('^',1 ,1);
+    ui->textBrowser_ChatLog->append("rev file :"+filename);
+    filename =  QFileDialog::getSaveFileName(this, tr("Save File"),
+               filename);
+    QFile saveFile(filename);
+    saveFile.open(QIODevice::WriteOnly);
+    QTextStream out(&saveFile);
+    out<<filetext;
+}

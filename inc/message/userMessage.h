@@ -23,9 +23,9 @@ public:
     userMessage(QString IP, QObject *parent = 0);
     ~userMessage();
 
-    inline void setGroup(int num);
     inline int  getGroup();
-    bool isMe(QString IP);
+    inline void setGroup(int num);
+    inline bool isMe(QString IP);
 
 private:
 	int  groupnum;
@@ -41,6 +41,13 @@ inline void userMessage::setGroup(int num)
 inline int userMessage::getGroup()
 {
     return this->groupnum;
+}
+
+inline bool userMessage::isMe(QString IP)
+{
+    if (IP == getIP())
+        return true;
+    return false;
 }
 
 #endif // USERMESSAGE

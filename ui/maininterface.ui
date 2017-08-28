@@ -58,13 +58,13 @@
     <rect>
      <x>80</x>
      <y>20</y>
-     <width>80</width>
+     <width>150</width>
      <height>30</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>80</width>
+     <width>150</width>
      <height>30</height>
     </size>
    </property>
@@ -87,7 +87,7 @@
      <x>0</x>
      <y>120</y>
      <width>300</width>
-     <height>470</height>
+     <height>475</height>
     </rect>
    </property>
    <property name="layoutDirection">
@@ -201,7 +201,6 @@
     <string>×</string>
    </property>
   </widget>
-  <zorder>layoutWidget</zorder>
   <zorder>tabWidget</zorder>
   <zorder>head</zorder>
   <zorder>usr_name</zorder>

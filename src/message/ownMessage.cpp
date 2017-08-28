@@ -3,10 +3,11 @@
 #include <QCoreApplication>
 #include <QHostInfo>
 #include <QString>
+#include <QNetworkInterface>
 
 ownMessage::ownMessage(QObject *parent) : Message(parent)
 {
-    this->background = 1;
+    Readfile();
     this->setHostname(QHostInfo::localHostName());
     this->setIP(getLocalIP());
 }
@@ -18,12 +19,25 @@ ownMessage::~ownMessage()
 
 QString ownMessage::getLocalIP()
 {
-    QHostInfo info = QHostInfo::fromName(QHostInfo::localHostName());
-    foreach(QHostAddress addr, info.addresses())
+//    QHostInfo info = QHostInfo::fromName(QHostInfo::localHostName());
+//    foreach(QHostAddress addr, info.addresses())
+//    {
+//        if(addr.protocol() == QAbstractSocket::IPv4Protocol
+//                && addr.toString().contains("192.168.1."))
+//            return addr.toString();
+//    }
+//    return NULL;
+    QList<QHostAddress> addList = QNetworkInterface::allAddresses();
+    foreach(QHostAddress address,addList)
     {
-        if(addr.protocol() == QAbstractSocket::IPv4Protocol
-                && addr.toString().contains("192.168.1."))
-            return addr.toString();
+        //排除IPV6，排除回环地址
+        if(address.protocol() == QAbstractSocket::IPv4Protocol
+                && address != QHostAddress(QHostAddress::LocalHost)
+                && address.toString().contains("192.168.1."))
+        {
+            //输出，转换为字符串格式
+            return address.toString();
+        }
     }
     return NULL;
 }
@@ -99,4 +113,3 @@ void ownMessage::Writefile()
     Readfile();
 #endif
 }
-

@@ -10,6 +10,41 @@
         <file>face/smile_3.ico</file>
         <file>face/smile_4.ico</file>
         <file>face/smile_5.ico</file>
+        <file>face/1.png</file>
+        <file>face/2.png</file>
+        <file>face/3.png</file>
+        <file>face/4.png</file>
+        <file>face/333332.svg</file>
+        <file>face/d1.ico</file>
+        <file>face/d2.ico</file>
+        <file>face/d17.ico</file>
+        <file>face/emoji-5.png</file>
+        <file>face/emoji-6.png</file>
+        <file>face/emoji-7.png</file>
+        <file>face/emoji-8.png</file>
+        <file>face/emoji-9.png</file>
+        <file>face/emoji-10.png</file>
+        <file>face/emoji-11.png</file>
+        <file>face/emoji-12.png</file>
+        <file>face/emoji-13.png</file>
+        <file>face/emoji-14.png</file>
+        <file>face/emoji-15.png</file>
+        <file>face/emoji-16.png</file>
+        <file>face/emoji-17.png</file>
+        <file>face/emoji-18.png</file>
+        <file>face/emoji-19.png</file>
+        <file>face/emoji-20.png</file>
+        <file>face/emoji-21.png</file>
+        <file>face/emoji-22.png</file>
+        <file>face/emoji-23.png</file>
+        <file>face/emoji-24.png</file>
+        <file>face/emoji-25.png</file>
+        <file>face/emoji-26.png</file>
+        <file>face/emoji-27.png</file>
+        <file>face/emoji-28.png</file>
+        <file>face/emoji-29.png</file>
+        <file>face/emoji-30.png</file>
+        <file>face/Shout_abuse.svg</file>
     </qresource>
     <qresource prefix="/head">
         <file>head/default_head1.jpg</file>
@@ -42,5 +77,7 @@
         <file>image/recentcontact.svg</file>
         <file>image/down.svg</file>
         <file>image/right.svg</file>
+        <file>image/chatbackground.png</file>
+        <file>image/chatbackgroundmask.png</file>
     </qresource>
 </RCC>
