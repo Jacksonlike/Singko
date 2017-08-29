@@ -10,10 +10,11 @@
 	件互传，支持Windows、 Linux平台，支持ARM平台(移植S5PV210)。 
 ## 版本信息
 ### v0.1.0(2017/8/29 23:00)
-	* 基本功能实现，能够跨平台传输文件和即时通信
-	* 一些本阶段测试情况图片
-		PC端：
-		![图片不存在](https://github.com/Jacksonlike/Singko/raw/master/testpic/Windows.PNG)  
-		![图片不存在](https://github.com/Jacksonlike/Singko/raw/master/testpic/Linux.PNG)
-		![图片不存在](https://github.com/Jacksonlike/Singko/raw/master/testpic/ARM.PNG)
-	* 下一步计划，实现个人信息设置界面，保存聊天信息到数据库
+* 基本功能实现，能够跨平台传输文件和即时通信
+* 一些本阶段测试情况图片
+* PC端：
+![图片不存在](https://github.com/Jacksonlike/Singko/raw/master/testpic/Windows.PNG)  
+![图片不存在](https://github.com/Jacksonlike/Singko/raw/master/testpic/Linux.PNG)
+* ARM 平台：	
+![图片不存在](https://github.com/Jacksonlike/Singko/raw/master/testpic/ARM.PNG)
+* 下一步计划，实现个人信息设置界面，保存聊天信息到数据库
